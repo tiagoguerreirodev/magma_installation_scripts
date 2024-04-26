@@ -7,7 +7,7 @@ for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker c
 
 # Add Docker's official GPG key:
 apt-get update
-apt-get install ca-certificates curl
+apt-get install -y ca-certificates curl
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 chmod a+r /etc/apt/keyrings/docker.asc
@@ -20,24 +20,29 @@ echo \
 apt-get update
 
 # Install
-apt-get install docker-ce docker-ce-cli containerd.io
+apt-get install -y docker-ce docker-ce-cli containerd.io
 curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # Add user to Docker group
-groupadd docker
+if [[ $(getent group docker) ]]; then
+	:
+else
+	groupadd docker
+fi
+
 usermod -aG docker $USER
 newgrp docker
 chmod 777 /var/run/docker.sock
 
 ### Vagrant installation
-apt install vagrant
+apt install -y vagrant
 
 ### Virtualbox installation
-apt install virtualbox
+apt install -y virtualbox
 
 ### Golang installation
-apt install golang
+apt install -y golang
 
 ### Python 3.7.3 installation
 curl https://pyenv.run | bash
