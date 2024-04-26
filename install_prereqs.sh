@@ -21,7 +21,7 @@ apt-get update
 
 # Install
 apt-get install -y docker-ce docker-ce-cli containerd.io
-wget "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -O /usr/local/bin/docker-compose
+curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # Add user to Docker group
@@ -43,7 +43,7 @@ apt install -y virtualbox
 apt install -y golang
 
 ### Python 3.7.3 installation
-wget https://pyenv.run | bash
+curl https://pyenv.run | bash
 
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
