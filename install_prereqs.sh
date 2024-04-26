@@ -25,10 +25,8 @@ wget "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # Add user to Docker group
-if [[ $(getent group docker) ]]; then
-	:
-else
-	groupadd docker
+if [[ -z $(getent group docker) ]]; then
+	groupadd docker	
 fi
 
 usermod -aG docker $USER
