@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 ### Docker installation
 
@@ -6,7 +6,7 @@
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do apt-get remove $pkg; done
 
 # Add Docker's official GPG key:
-apt-get update
+sudo apt-get update
 apt-get install -y ca-certificates curl
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
@@ -21,16 +21,17 @@ apt-get update
 
 # Install
 apt-get install -y docker-ce docker-ce-cli containerd.io
-curl -L "https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+curl -fsSL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # Add user to Docker group
 if [[ -z $(getent group docker) ]]; then
+  echo "Groupadd docker"
 	groupadd docker	
 fi
 
 usermod -aG docker $USER
-newgrp docker
+echo "Added current user to Docker group"
 chmod 777 /var/run/docker.sock
 
 ### Vagrant installation
@@ -43,7 +44,9 @@ apt install -y virtualbox
 apt install -y golang
 
 ### Python 3.7.3 installation
-curl https://pyenv.run | bash
+curl -fsSL https://pyenv.run -o pyenv.sh && chmod +x pyenv.sh
+./pyenv.sh
+rm pyenv.sh
 
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
