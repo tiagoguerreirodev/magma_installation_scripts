@@ -64,6 +64,9 @@ echo 'eval "$(pyenv init -)"' >> ~/.profile
 
 echo "Added Pyenv variables to bashrc and profile"
 
+source ~/.bashrc
+source ~/.profile
+
 apt-get install -y --no-install-recommends make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 pyenv install 3.7.3
 pyenv global 3.7.3
