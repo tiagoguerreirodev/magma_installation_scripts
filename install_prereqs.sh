@@ -36,17 +36,23 @@ chmod 777 /var/run/docker.sock
 
 ### Vagrant installation
 apt install -y vagrant
+echo "Installed Vagrant"
 
 ### Virtualbox installation
 apt install -y virtualbox
+echo "Installed Virtualbox"
 
 ### Golang installation
 apt install -y golang
+echo "Installed golang"
 
 ### Python 3.7.3 installation
 curl -fsSL https://pyenv.run -o pyenv.sh && chmod +x pyenv.sh
-./pyenv.sh
+echo "Download Pyenv installer"
+sh pyenv.sh
+echo "Executing Pyenv installer"
 rm pyenv.sh
+echo "Cleaning up installer"
 
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
@@ -56,10 +62,16 @@ echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
 echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
 echo 'eval "$(pyenv init -)"' >> ~/.profile
 
+echo "Added Pyenv variables to bashrc and profile"
+
 source ~/.bashrc
 source ~/.profile
 exec "$SHELL"
 
+echo "Restarted current shell"
+
 apt-get install -y --no-install-recommends make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
 pyenv install 3.7.3
 pyenv global 3.7.3
+
+echo "Configured python 3.7.3"
