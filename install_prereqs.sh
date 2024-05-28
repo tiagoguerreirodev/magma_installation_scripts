@@ -72,3 +72,10 @@ pyenv install 3.7.3
 pyenv global 3.7.3
 
 echo "Configured python 3.7.3"
+
+# Fix crashloop AGW
+wget https://ftp.debian.org/debian/pool/main/g/gcc-10/liblsan0_10.2.1-6_amd64.deb
+wget https://ftp.debian.org/debian/pool/main/g/gcc-10/gcc-10-base_10.2.1-6_amd64.deb
+dpkg -i gcc-10-base_10.2.1-6_amd64.deb liblsan0_10.2.1-6_amd64.deb
+rm gcc-10-base_10.2.1-6_amd64.deb
+rm liblsan0_10.2.1-6_amd64.deb
