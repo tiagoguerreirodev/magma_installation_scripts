@@ -72,8 +72,3 @@ pyenv install 3.7.3
 pyenv global 3.7.3
 
 echo "Configured python 3.7.3"
-
-dpkg --configure -a
-apt-get -y install curl make virtualenv zip rsync git software-properties-common python3-pip python-dev apt-transport-https
-
-echo "Finished fix for AGW crashloop"
