@@ -1,0 +1,14 @@
+auto lo
+iface lo inet loopback
+
+rename enp2s0=eth1
+auto eth1
+iface eth1 inet static
+  address 192.168.0.99/24
+
+rename wlp1s0=eth0
+auto eth0
+iface eth0 inet dhcp
+  dns-nameserver 8.8.8.8
+  wpa-ssid {NETWORK_NAME}
+  wpa-psk {NETWORK_PASSWD}
