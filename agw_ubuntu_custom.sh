@@ -60,9 +60,8 @@ fi
 
 apt-get update
 
-echo "Need to check if both interfaces are named eth0 and eth1"
-INTERFACES=$(ip -br a)
-if [[ $1 != "$CLOUD_INSTALL" ]] && ( [[ ! $INTERFACES == *'eth0'*  ]] || [[ ! $INTERFACES == *'eth1'* ]] || ! grep -q 'GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"' /etc/default/grub); then
+echo "Running initial configuration. Please configure eth and eth1 interfaces manually, using ifupdown."
+if [ $NEED_REBOOT = 0 ]; then
   # changing intefaces name
   sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"/g' /etc/default/grub
   # sed -i 's/enp0s3/eth0/g' /etc/netplan/50-cloud-init.yaml
@@ -79,41 +78,41 @@ if [[ $1 != "$CLOUD_INSTALL" ]] && ( [[ ! $INTERFACES == *'eth0'*  ]] || [[ ! $I
   # mkdir -p "$INTERFACE_DIR"
   # echo "source-directory $INTERFACE_DIR" > /etc/network/interfaces
 
-  if [ -z "$addr1" ] || [ -z "$gw_addr" ]
-  then
-    # DHCP allocated interface IP
-    echo "auto eth0
-    iface eth0 inet dhcp" > "$INTERFACE_DIR"/eth0
-  else
-    # Statically allocated interface IP
-    if ipcalc -c "$addr1" | grep INVALID
-    then
-      echo "Interface ip is not valid IP"
-      exit 1
-    fi
+  # if [ -z "$addr1" ] || [ -z "$gw_addr" ]
+  # then
+  #   # DHCP allocated interface IP
+  #   echo "auto eth0
+  #   iface eth0 inet dhcp" > "$INTERFACE_DIR"/eth0
+  # else
+  #   # Statically allocated interface IP
+  #   if ipcalc -c "$addr1" | grep INVALID
+  #   then
+  #     echo "Interface ip is not valid IP"
+  #     exit 1
+  #   fi
 
-    if ipcalc -c "$gw_addr" | grep INVALID
-    then
-      echo "Upstream Router ip is not valid IP"
-      exit 1
-    fi
+  #   if ipcalc -c "$gw_addr" | grep INVALID
+  #   then
+  #     echo "Upstream Router ip is not valid IP"
+  #     exit 1
+  #   fi
 
-    addr=$(   ipcalc -n "$addr1"  | grep Address | awk '{print $2}')
-    netmask=$(ipcalc -n "$addr1"  | grep Netmask | awk '{print $2}')
-    gw_addr=$(ipcalc -n "$gw_addr"| grep Address | awk '{print $2}')
+  #   addr=$(   ipcalc -n "$addr1"  | grep Address | awk '{print $2}')
+  #   netmask=$(ipcalc -n "$addr1"  | grep Netmask | awk '{print $2}')
+  #   gw_addr=$(ipcalc -n "$gw_addr"| grep Address | awk '{print $2}')
 
-    echo "auto eth0
-  iface eth0 inet static
-  address $addr
-  netmask $netmask
-  gateway $gw_addr" > "$INTERFACE_DIR"/eth0
-  fi
+  #   echo "auto eth0
+  # iface eth0 inet static
+  # address $addr
+  # netmask $netmask
+  # gateway $gw_addr" > "$INTERFACE_DIR"/eth0
+  # fi
 
-  # configuring eth1
-  echo "auto eth1
-  iface eth1 inet static
-  address 10.0.2.1
-  netmask 255.255.255.0" > "$INTERFACE_DIR"/eth1
+  # # configuring eth1
+  # echo "auto eth1
+  # iface eth1 inet static
+  # address 10.0.2.1
+  # netmask 255.255.255.0" > "$INTERFACE_DIR"/eth1
 
   # get rid of netplan
   systemctl unmask networking
@@ -146,6 +145,7 @@ fi
 
 if [ $NEED_REBOOT = 1 ]; then
   echo "Will reboot in a few seconds, loading a boot script in order to install magma"
+  sleep 20
   if [ ! -f "$AGW_SCRIPT_PATH" ]; then
       cp "$(realpath $0)" "${AGW_SCRIPT_PATH}"
   fi
