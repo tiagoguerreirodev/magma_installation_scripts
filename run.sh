@@ -8,6 +8,8 @@ bash ./install_prereqs.sh
 source ~/.bashrc
 source ~/.profile
 
+apt purge netplan.io -y
+
 cp ./eth0 /etc/network/interfaces.d/eth0
 cp ./eth1 /etc/network/interfaces.d/eth1
 
