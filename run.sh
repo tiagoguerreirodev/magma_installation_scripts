@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 chmod a+x ./install_prereqs.sh
 chmod a+x ./agw_ubuntu_custom.sh
 
