@@ -60,10 +60,10 @@ fi
 
 apt-get update
 
-FILE="already_configured"
+FILE="/home/$MAGMA_USER/already_configured"
 
 echo "Running initial configuration. Please configure eth and eth1 interfaces manually, using ifupdown."
-if ! [ -f ~/"$FILE" ]; then
+if ! [ -f $FILE ]; then
   # changing intefaces name
   sed -i 's/GRUB_CMDLINE_LINUX=""/GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevname=0"/g' /etc/default/grub
   # sed -i 's/enp0s3/eth0/g' /etc/netplan/50-cloud-init.yaml
@@ -124,7 +124,8 @@ if ! [ -f ~/"$FILE" ]; then
 
   # Setting REBOOT flag to 1 because we need to reload new interface and network services.
   NEED_REBOOT=1
-  touch ~/"$FILE"
+
+  touch $FILE
 else
   echo "Interfaces name are correct, let's check if network and DNS are up"
   while ! nslookup google.com; do
