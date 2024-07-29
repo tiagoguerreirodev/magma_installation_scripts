@@ -179,6 +179,7 @@ WantedBy=multi-user.target
 EOF
   chmod 644 $AGW_INSTALL_CONFIG
   ln -sf $AGW_INSTALL_CONFIG $AGW_INSTALL_CONFIG_LINK
+  sleep 20
   reboot
 fi
 
