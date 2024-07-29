@@ -183,9 +183,11 @@ EOF
   reboot
 fi
 
+MAGMA_SUCCESS="/home/$MAGMA_USER/installation_success"
+
 echo "Checking if magma has been installed"
-MAGMA_INSTALLED=$(apt-cache show magma >  /dev/null 2>&1 echo "$SUCCESS_MESSAGE")
-if [ "$MAGMA_INSTALLED" != "$SUCCESS_MESSAGE" ]; then
+
+if ! [ -f $MAGMA_SUCCESS ]; then
   echo "Magma not installed, processing installation"
   apt-get -y install curl make virtualenv zip rsync git software-properties-common python3-pip python-dev apt-transport-https
 
@@ -211,6 +213,8 @@ if [ "$MAGMA_INSTALLED" != "$SUCCESS_MESSAGE" ]; then
 
   echo "AGW installation is done, Run agw_post_install_ubuntu.sh install script after reboot to finish installation"
   wget https://raw.githubusercontent.com/magma/magma/"$MAGMA_VERSION"/lte/gateway/deploy/agw_post_install_ubuntu.sh -P /root/
+
+  touch $MAGMA_SUCCESS
 
   sleep 20
   reboot
