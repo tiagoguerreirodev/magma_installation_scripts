@@ -4,7 +4,6 @@
 apt update
 apt upgrade -y
 apt install -y net-tools ifupdown
-apt purge -y netplan.io
 
 ### Docker installation
 
