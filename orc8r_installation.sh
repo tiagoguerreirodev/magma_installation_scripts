@@ -23,6 +23,8 @@ docker compose build magmalte
 
 docker compose up -d
 
+sleep 10
+
 chmod a+x ./scripts/dev_setup.sh
 bash ./scripts/dev_setup.sh
 
