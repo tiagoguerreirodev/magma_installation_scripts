@@ -3,7 +3,7 @@ set -x
 cd /home/magma/magma/orc8r/cloud/docker
 
 chmod a+x build.py
-bash ./build.py --all
+python3 ./build.py --all
 
 #TODO change ports in orc8r build
 #24225:24224
@@ -12,7 +12,7 @@ bash ./build.py --all
 #24226:24224/udp
 
 chmod a+x run.py
-bash ./run.py --metrics
+python3 ./run.py --metrics
 
 cd /home/magma/magma/nms/app/packages/magmalte
 
