@@ -16,22 +16,17 @@ bash ./run.py --metrics
 
 cd /home/magma/magma/nms/app/packages/magmalte
 
-docker compose build magmalte
+docker-compose build magmalte
 
-#TODO change ports in magmalte build
-# 8082:8081
+sed -i 's/"8081:8081"/"8082:8081"/g' /home/magma/magma/nms/app/packages/magmalte/docker-compose.yml
 
-docker compose up -d
+docker-compose up -d
 
 sleep 10
 
 chmod a+x ./scripts/dev_setup.sh
 bash ./scripts/dev_setup.sh
 
-#TODO add the following lines in /etc/hosts
-# 127.0.0.1 magma
-# 127.0.0.1 magma-test
-# 127.0.0.1 bootstrapper-controller.magma.test
-# 127.0.0.1 controller.magma.test
+sed -i "1i127.0.0.1 magma\n127.0.0.1 magma-test\n127.0.0.1 bootstrapper-controller.magma.test\n127.0.0.1 controller.magma.test" /etc/hosts
 
 #TODO configure containers to auto-restart in reboot
