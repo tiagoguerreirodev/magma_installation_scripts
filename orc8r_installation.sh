@@ -16,7 +16,7 @@ python3 ./run.py --metrics
 
 cd /home/magma/magma/nms/app/packages/magmalte
 
-sed -e '70,74d;40d' docker-compose.yml
+sed -i '70,74d;40d' docker-compose.yml
 
 docker-compose build magmalte
 
