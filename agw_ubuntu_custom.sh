@@ -45,14 +45,6 @@ if [ "$SKIP_PRECHECK" != "$SUCCESS_MESSAGE" ]; then
   wget https://raw.githubusercontent.com/magma/magma/"$MAGMA_VERSION"/lte/gateway/deploy/agw_pre_check_ubuntu.sh
   if [[ -f ./agw_pre_check_ubuntu.sh ]]; then
     bash agw_pre_check_ubuntu.sh
-    while true; do
-        read -p "Do you accept those modifications and want to proceed with magma installation?(y/n)" yn
-        case $yn in
-            [Yy]* ) break;;
-            [Nn]* ) exit;;
-            * ) echo "Please answer yes or no.";;
-        esac
-    done
   else
     echo "agw_pre_check_ubuntu.sh is not available in your version"
   fi
