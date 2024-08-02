@@ -2,6 +2,8 @@ set -x
 
 cd /home/magma/magma/orc8r/cloud/docker
 
+sed -i 's@$PWD/../../../.cache/test_certs:/var/opt/magma/certs@/var/opt/magma/certs:/var/opt/magma/certs@g'
+
 chmod a+x build.py
 python3 ./build.py --all
 
