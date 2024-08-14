@@ -2,7 +2,7 @@ set -x
 
 cd /home/magma/magma/orc8r/cloud/docker
 
-sed -i 's@$PWD/../../../.cache/test_certs:/var/opt/magma/certs@/var/opt/magma/certs:/var/opt/magma/certs@g'
+sed -i 's@$PWD/../../../.cache/test_certs:/var/opt/magma/certs@/var/opt/magma/certs:/var/opt/magma/certs@g' /home/magma/magma/orc8r/cloud/docker/docker-compose.yml
 
 chmod a+x build.py
 python3 ./build.py --all
@@ -16,16 +16,16 @@ python3 ./build.py --all
 chmod a+x run.py
 python3 ./run.py --metrics
 
-cd /home/magma/magma/nms/app/packages/magmalte
+cd /home/magma/magma/nms
 
-sed -i '70,74d;40d' docker-compose.yml
+sed -i '70,73d;39d' /home/magma/magma/nms/docker-compose.yml
 
-docker-compose build magmalte
+sed -i 's/"8081:8081"/"8082:8081"/g' /home/magma/magma/nms/docker-compose.yml
 
-sed -i 's/"8081:8081"/"8082:8081"/g' /home/magma/magma/nms/app/packages/magmalte/docker-compose.yml
+COMPOSE_PROJECT_NAME=magmalte docker-compose build magmalte
 
-sed -i 's@API_CERT_FILENAME:-../../../../.cache/test_certs/admin_operator.pem@API_CERT_FILENAME:-/var/opt/magma/certs/admin_operator.pem@g' /home/magma/magma/nms/app/packages/magmalte/docker-compose.yml
-sed -i 's@API_PRIVATE_KEY_FILENAME:-../../../../.cache/test_certs/admin_operator.key.pem@API_CERT_FILENAME:-/var/opt/magma/certs/admin_operator.key.pem@g' /home/magma/magma/nms/app/packages/magmalte/docker-compose.yml
+sed -i 's@API_CERT_FILENAME:-../.cache/test_certs/admin_operator.pem@API_CERT_FILENAME:-/var/opt/magma/certs/admin_operator.pem@g' /home/magma/magma/nms/docker-compose.yml
+sed -i 's@API_PRIVATE_KEY_FILENAME:-../.cache/test_certs/admin_operator.key.pem@API_CERT_FILENAME:-/var/opt/magma/certs/admin_operator.key.pem@g' /home/magma/magma/nms/docker-compose.yml
 
 docker-compose up -d
 

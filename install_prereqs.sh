@@ -26,7 +26,7 @@ apt-get update
 
 # Install
 apt-get install -y docker-ce docker-ce-cli containerd.io
-curl -fsSL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+curl -fsSL https://github.com/docker/compose/releases/download/v2.29.1/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
 # Add user to Docker group
@@ -40,7 +40,10 @@ echo "Added current user to Docker group"
 chmod 777 /var/run/docker.sock
 
 ### Vagrant installation
-apt install -y vagrant
+wget https://releases.hashicorp.com/vagrant/2.4.1/vagrant_2.4.1-1_amd64.deb
+dpkg -i vagrant_2.4.1-1_amd64.deb
+rm vagrant_2.4.1-1_amd64.deb
+vagrant plugin install vagrant-vbguest vagrant-disksize vagrant-reload
 echo "Installed Vagrant"
 
 ### Virtualbox installation
@@ -48,10 +51,14 @@ apt install -y virtualbox
 echo "Installed Virtualbox"
 
 ### Golang installation
-apt install -y golang
+wget https://linuxfoundation.jfrog.io/artifactory/magma-blob/go1.18.3.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
 echo "Installed golang"
 
 ### Python 3.7.3 installation
+apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
 curl -fsSL https://pyenv.run -o pyenv.sh && chmod +x pyenv.sh
 echo "Download Pyenv installer"
 sh pyenv.sh
@@ -60,20 +67,17 @@ rm pyenv.sh
 echo "Cleaning up installer"
 
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
-echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(pyenv init -)"' >> ~/.bashrc
-
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.profile
-echo 'command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.profile
-echo 'eval "$(pyenv init -)"' >> ~/.profile
+echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n eval "$(pyenv init -) "\nfi' >> ~/.bashrc
 
 echo "Added Pyenv variables to bashrc and profile"
 
 source ~/.bashrc
-source ~/.profile
 
-apt-get install -y --no-install-recommends make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-pyenv install 3.7.3
-pyenv global 3.7.3
+pyenv install 3.8.10
+pyenv global 3.8.10
+
+apt install python3-pip
+pip3 install ansible fabric3 jsonpickle requests PyYAML
 
 echo "Configured python 3.7.3"

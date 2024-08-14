@@ -8,7 +8,6 @@ chmod a+x ./agw_ubuntu_custom.sh
 bash ./install_prereqs.sh
 
 source ~/.bashrc
-source ~/.profile
 
 apt purge netplan.io -y
 
