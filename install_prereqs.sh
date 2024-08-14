@@ -57,14 +57,9 @@ export PATH=$PATH:/usr/local/go/bin
 echo "Installed golang"
 
 ### Python 3.7.3 installation
-apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+apt update -y
+apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-curl -fsSL https://pyenv.run -o pyenv.sh && chmod +x pyenv.sh
-echo "Download Pyenv installer"
-sh pyenv.sh
-echo "Executing Pyenv installer"
-rm pyenv.sh
-echo "Cleaning up installer"
 
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
 echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
@@ -77,7 +72,7 @@ source ~/.bashrc
 pyenv install 3.8.10
 pyenv global 3.8.10
 
-apt install python3-pip
+apt install -y python3-pip
 pip3 install ansible fabric3 jsonpickle requests PyYAML
 
-echo "Configured python 3.7.3"
+echo "Configured python 3.8.10"
