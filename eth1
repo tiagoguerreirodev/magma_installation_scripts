@@ -1,4 +1,4 @@
-rename enx00e04c36006=eth1
+rename enp0s8=eth1
 auto eth1
   iface eth1 inet static
   address 192.168.2.1
