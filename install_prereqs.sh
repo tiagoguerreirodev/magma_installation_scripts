@@ -73,6 +73,6 @@ pyenv install 3.8.10
 pyenv global 3.8.10
 
 apt install -y python3-pip
-pip3 install ansible fabric3 jsonpickle requests PyYAML
+pip3 install ansible fabric3 jsonpickle requests PyYAML jinja2==3.0.3
 
 echo "Configured python 3.8.10"
