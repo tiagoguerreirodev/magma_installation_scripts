@@ -56,7 +56,7 @@ rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 echo "Installed golang"
 
-### Python 3.7.3 installation
+### Python installation
 apt update -y
 apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 git clone https://github.com/pyenv/pyenv.git ~/.pyenv
@@ -72,7 +72,9 @@ source ~/.bashrc
 pyenv install 3.8.10
 pyenv global 3.8.10
 
-apt install -y python3-pip
-pip3 install ansible fabric3 jsonpickle requests PyYAML jinja2==3.0.3
+dpkg --configure -a
+apt-get -y install curl make virtualenv zip rsync git software-properties-common python3-pip python-dev apt-transport-https
+
+pip3 install ansible==5.10.0 fabric3 jsonpickle requests PyYAML jinja2==3.0.3
 
 echo "Configured python 3.8.10"
