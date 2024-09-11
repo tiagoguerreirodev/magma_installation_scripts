@@ -1,8 +1,8 @@
-cloud_address: controller.localhost
-cloud_port: 7443
-bootstrap_address: bootstrapper-controller.localhost
-bootstrap_port: 7444
-fluentd_address: fluentd.localhost
+cloud_address: controller.orc8r.magmacore.link
+cloud_port: 443
+bootstrap_address: bootstrapper-controller.orc8r.magmacore.link
+bootstrap_port: 443
+fluentd_address: fluentd.orc8r.magmacore.link
 fluentd_port: 24224
 
 rootca_cert: /var/opt/magma/certs/rootCA.pem
