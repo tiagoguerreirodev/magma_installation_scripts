@@ -37,6 +37,8 @@ chmod 777 /var/run/docker.sock
 ### Python installation
 apt update -y
 apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+
+apt install git -y
 git clone https://github.com/pyenv/pyenv.git /home/magma/.pyenv
 
 echo 'export PYENV_ROOT="/home/magma/.pyenv"' >> /home/magma/.bashrc
@@ -54,3 +56,18 @@ dpkg --configure -a
 apt-get -y install curl make virtualenv zip rsync git software-properties-common python3-pip python-dev apt-transport-https
 
 echo "Configured python 3.8.10"
+
+git clone https://github.com/magma/magma.git /home/magma/magma
+
+mkdir -p /var/opt/magma/configs/
+cp ./control_proxy.yml /var/opt/magma/configs/control_proxy.yml
+
+mkdir -p /var/opt/magma/certs
+
+cp /home/magma/magma/orc8r/cloud/deploy/scripts/self_sign_certs.sh /var/opt/magma/certs/self_sign_certs.sh
+cp /home/magma/magma/orc8r/cloud/deploy/scripts/create_application_certs.sh /var/opt/magma/certs/create_application_certs.sh
+
+cd /var/opt/magma/certs
+
+bash self_sign_certs.sh localhost
+bash create_application_certs.sh localhost
