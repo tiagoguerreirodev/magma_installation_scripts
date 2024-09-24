@@ -14,7 +14,7 @@ cd /home/magma/magma/nms
 
 sed -i '70,73d;39d' /home/magma/magma/nms/docker-compose.yml
 
-# sed -i 's/"8081:8081"/"8082:8081"/g' /home/magma/magma/nms/docker-compose.yml
+sed -i 's/"8081:8081"/"8082:8081"/g' /home/magma/magma/nms/docker-compose.yml
 
 # COMPOSE_PROJECT_NAME=magmalte docker-compose build magmalte
 
