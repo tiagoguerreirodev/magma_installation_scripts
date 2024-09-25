@@ -21,7 +21,7 @@ sed -i 's/"8081:8081"/"8082:8081"/g' /home/magma/magma/nms/docker-compose.yml
 sed -i 's@API_CERT_FILENAME:-../.cache/test_certs/admin_operator.pem@API_CERT_FILENAME:-/var/opt/magma/certs/admin_operator.pem@g' /home/magma/magma/nms/docker-compose.yml
 sed -i 's@API_PRIVATE_KEY_FILENAME:-../.cache/test_certs/admin_operator.key.pem@API_CERT_FILENAME:-/var/opt/magma/certs/admin_operator.key.pem@g' /home/magma/magma/nms/docker-compose.yml
 
-sed -i 's@localhost:8081/healthz@localhost:8082/healthz@g'
+sed -i 's@localhost:8081/healthz@localhost:8082/healthz@g' /home/magma/magma/nms/docker-compose.yml
 
 sed -i 's@http://magmalte:8081@http://magmalte:8082@g' /home/magma/magma/nms/docker/docker_ssl_proxy/proxy_ssl.conf
 
