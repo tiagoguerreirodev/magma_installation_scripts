@@ -25,6 +25,8 @@ sed -i 's@localhost:8081/healthz@localhost:8082/healthz@g' /home/magma/magma/nms
 
 sed -i 's@http://magmalte:8081@http://magmalte:8082@g' /home/magma/magma/nms/docker/docker_ssl_proxy/proxy_ssl.conf
 
+sed -i "1i127.0.0.1 magma\n127.0.0.1 magma-test\n127.0.0.1 magma-test.localhost\n127.0.0.1 fluentd.magma.test\n127.0.0.1 magma-test\n127.0.0.1 bootstrapper-controller.magma.test\n127.0.0.1 controller.magma.test" /etc/hosts
+
 docker-compose up -d
 
 sleep 10
@@ -32,6 +34,5 @@ sleep 10
 chmod a+x ./scripts/dev_setup.sh
 bash ./scripts/dev_setup.sh
 
-sed -i "1i127.0.0.1 magma\n127.0.0.1 magma-test\n127.0.0.1 bootstrapper-controller.magma.test\n127.0.0.1 controller.magma.test" /etc/hosts
 
 #TODO configure containers to auto-restart in reboot
