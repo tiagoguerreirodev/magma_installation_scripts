@@ -19,8 +19,7 @@ services:
     volumes:
       - ./docker/docker_ssl_proxy:/etc/nginx/conf.d
     networks:
-      - default
-      - orc8r_default
+      - shared_network
     depends_on:
       - magmalte
 
@@ -38,8 +37,7 @@ services:
     depends_on:
       - postgres
     networks:
-      - default
-      - orc8r_default
+      - shared_network
     ports:
       - "8082:8081"
     environment:
@@ -71,9 +69,8 @@ secrets:
     file: ${API_PRIVATE_KEY_FILENAME:-/var/opt/magma/certs/admin_operator.key.pem}
 
 networks:
-  orc8r_default:
-    external:
-      name: orc8r_default
+  shared_network:
+    external: true
 
 volumes:
   nms-db:
