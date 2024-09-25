@@ -72,7 +72,8 @@ secrets:
 
 networks:
   orc8r_default:
-    external: true
+    external:
+      name: orc8r_default
 
 volumes:
   nms-db:
