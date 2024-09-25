@@ -89,7 +89,7 @@ services:
       - "7444:8444/tcp"   # bootstrapper port
       - "9443:9443/tcp"   # API port
     volumes:
-      - $PWD/../../../.cache/test_certs:/var/opt/magma/certs
+      - /var/opt/magma/certs:/var/opt/magma/certs
     networks:
       - orc8r_default
     environment:
@@ -144,7 +144,7 @@ services:
       - "24225:24225/udp"
     volumes:
       - ./fluentd/conf:/fluentd/etc
-      - $PWD/../../../.cache/test_certs:/var/opt/magma/certs
+      - /var/opt/magma/certs:/var/opt/magma/certs
       
 networks:
   orc8r_default:
