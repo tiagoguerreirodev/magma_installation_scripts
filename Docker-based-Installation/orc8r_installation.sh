@@ -7,7 +7,7 @@ cd /home/magma/magma/orc8r/cloud/docker
 chmod a+x ./build.py
 python3 ./build.py --all
 
-chmod a+x ./docker/run.py
+chmod a+x ./run.py
 python3 ./run.py --metrics
 
 mv -f /home/magma/magma_installation_scripts/Docker-based-Installation/nms/docker-compose.yml /home/magma/magma/nms/docker-compose.yml
