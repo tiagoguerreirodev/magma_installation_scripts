@@ -23,6 +23,8 @@ services:
       MAGMA_PRINT_GRPC_PAYLOAD: 0
     links:
       - fluentd
+    networks:
+      - orc8r_default
     depends_on:
       - postgres
       - fluentd
@@ -62,6 +64,8 @@ services:
       POSTGRES_USER: magma_dev
       POSTGRES_PASSWORD: magma_dev
       POSTGRES_DB: magma_dev
+    networks:
+      - orc8r_default
     command:
       - "postgres"
       - "-c"
@@ -74,6 +78,8 @@ services:
     image: mariadb:10.2
     volumes:
       - mysql:/var/lib/mysql
+    networks:
+      - orc8r_default
     environment:
       MYSQL_ROOT_PASSWORD: magma
       MYSQL_DATABASE: magma_dev
@@ -120,6 +126,8 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    networks:
+      - orc8r_default
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
     restart: always
@@ -128,6 +136,8 @@ services:
     image: docker.elastic.co/kibana/kibana:7.3.1
     ports:
       - "5601:5601"
+    networks:
+      - orc8r_default
     links:
       - elasticsearch
 
@@ -137,6 +147,8 @@ services:
     links:
       - elasticsearch
     # 24224 for TLS secure forwarding, 24225 for unsecured docker logging
+    networks:
+      - orc8r_default
     ports:
       - "24224:24224"
       - "24224:24224/udp"
