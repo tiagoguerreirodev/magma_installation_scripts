@@ -20,6 +20,7 @@ services:
       - ./docker/docker_ssl_proxy:/etc/nginx/conf.d
     networks:
       - default
+      - orc8r_default
     depends_on:
       - magmalte
 
