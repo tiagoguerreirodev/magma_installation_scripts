@@ -73,3 +73,5 @@ bash self_sign_certs.sh magma-test
 bash create_application_certs.sh magma-test
 
 openssl pkcs12 -export -inkey admin_operator.key.pem -in admin_operator.pem -out admin_operator.pfx
+
+chown magma:magma .
