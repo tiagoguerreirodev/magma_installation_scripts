@@ -18,6 +18,8 @@ sed -i "1i127.0.0.1 magma\n127.0.0.1 magma-test\n127.0.0.1 magma.test\n127.0.0.1
 
 cd /home/magma/magma/nms
 
+COMPOSE_PROJECT_NAME=magmalte docker-compose build magmalte
+
 docker-compose up -d
 
 sleep 60
