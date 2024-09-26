@@ -58,8 +58,8 @@ services:
       # Tell Puppeteer to skip installing Chrome. We'll be using the installed package.
       PUPPETEER_SKIP_DOWNLOAD: "true"
       VERSION_TAG: LOCAL-DEV
-    healthcheck:
-      test: curl -If localhost:8082/healthz
+    # healthcheck:
+    #   test: curl -If localhost:8082/healthz
     restart: on-failure
     secrets:
       - api_cert
