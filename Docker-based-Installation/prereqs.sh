@@ -69,5 +69,7 @@ cp /home/magma/magma/orc8r/cloud/deploy/scripts/create_application_certs.sh /var
 
 cd /var/opt/magma/certs
 
-bash self_sign_certs.sh localhost
-bash create_application_certs.sh localhost
+bash self_sign_certs.sh magma-test
+bash create_application_certs.sh magma-test
+
+openssl pkcs12 -export -inkey admin_operator.key.pem -in admin_operator.pem -out admin_operator.pfx
