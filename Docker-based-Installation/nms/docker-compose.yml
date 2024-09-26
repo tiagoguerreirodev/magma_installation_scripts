@@ -7,6 +7,8 @@ services:
     image: postgres:9.5
     volumes:
       - nms-db:/var/lib/postgresql/data
+    networks:
+      - default
     environment:
       POSTGRES_DB: nms
       POSTGRES_USER: nms
@@ -38,6 +40,7 @@ services:
       - postgres
     networks:
       - shared_network
+      - default
     ports:
       - "8082:8081"
     environment:
