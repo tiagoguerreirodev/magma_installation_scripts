@@ -8,7 +8,7 @@ services:
     volumes:
       - /var/opt/magma/certs:/var/opt/magma/certs
       # log level can be modified at supervisord.conf without the need of building a new image
-      - $PWD/controller/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
+      - ./controller/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
     environment:
       TEST_MODE: "1"  # Run dev scripts on startup
       SERVICE_HOSTNAME: localhost  # All services are reachable through localhost

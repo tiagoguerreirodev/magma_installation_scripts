@@ -34,11 +34,16 @@ usermod -aG docker $USER
 echo "Added current user to Docker group"
 chmod 777 /var/run/docker.sock
 
+### Golang installation
+wget https://linuxfoundation.jfrog.io/artifactory/magma-blob/go1.18.3.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+echo "Installed golang"
+
 ### Python installation
 apt update -y
 apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
 
-apt install git -y
 git clone https://github.com/pyenv/pyenv.git /home/magma/.pyenv
 
 echo 'export PYENV_ROOT="/home/magma/.pyenv"' >> /home/magma/.bashrc
@@ -74,4 +79,5 @@ bash create_application_certs.sh magma-test
 
 openssl pkcs12 -export -inkey admin_operator.key.pem -in admin_operator.pem -out admin_operator.pfx
 
-chown magma:magma .
+chown magma:magma *
+chmod a+rw ./controller.key
