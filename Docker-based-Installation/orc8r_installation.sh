@@ -20,7 +20,7 @@ cd /home/magma/magma/nms
 
 docker-compose up -d
 
-sleep 10
+sleep 60
 
 chmod a+x ./scripts/dev_setup.sh
 bash ./scripts/dev_setup.sh
