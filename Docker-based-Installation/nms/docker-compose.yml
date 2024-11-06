@@ -38,7 +38,7 @@ services:
       - orc8r_default
       - default
     ports:
-      - "8081:8081"
+      - "8082:8081"
     environment:
       API_CERT_FILENAME: /run/secrets/api_cert
       API_PRIVATE_KEY_FILENAME: /run/secrets/api_key
