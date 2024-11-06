@@ -7,8 +7,6 @@ services:
     image: postgres:9.5
     volumes:
       - nms-db:/var/lib/postgresql/data
-    networks:
-      - default
     environment:
       POSTGRES_DB: nms
       POSTGRES_USER: nms
@@ -20,8 +18,6 @@ services:
       - "443:443"
     volumes:
       - ./docker/docker_ssl_proxy:/etc/nginx/conf.d
-    networks:
-      - shared_network
     depends_on:
       - magmalte
 
@@ -39,10 +35,10 @@ services:
     depends_on:
       - postgres
     networks:
-      - shared_network
+      - orc8r_default
       - default
     ports:
-      - "8082:8081"
+      - "8081:8081"
     environment:
       API_CERT_FILENAME: /run/secrets/api_cert
       API_PRIVATE_KEY_FILENAME: /run/secrets/api_key
@@ -72,8 +68,7 @@ secrets:
     file: ${API_PRIVATE_KEY_FILENAME:-/var/opt/magma/certs/admin_operator.key.pem}
 
 networks:
-  shared_network:
-    name: orc8r_shared_network
+  orc8r_default:
     external: true
 
 volumes:

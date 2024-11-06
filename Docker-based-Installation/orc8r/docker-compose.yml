@@ -23,8 +23,6 @@ services:
       MAGMA_PRINT_GRPC_PAYLOAD: 0
     links:
       - fluentd
-    networks:
-      - shared_network
     depends_on:
       - postgres
       - fluentd
@@ -76,8 +74,6 @@ services:
     image: mariadb:10.2
     volumes:
       - mysql:/var/lib/mysql
-    networks:
-      - shared_network
     environment:
       MYSQL_ROOT_PASSWORD: magma
       MYSQL_DATABASE: magma_dev
@@ -94,8 +90,6 @@ services:
       - "9443:9443/tcp"   # API port
     volumes:
       - /var/opt/magma/certs:/var/opt/magma/certs
-    networks:
-      - shared_network
     environment:
       CONTROLLER_HOSTNAME: controller.magma.test
       PROXY_BACKENDS: controller
@@ -124,8 +118,6 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-    networks:
-      - shared_network
     volumes:
       - elasticsearch:/usr/share/elasticsearch/data
     restart: always
@@ -134,8 +126,6 @@ services:
     image: docker.elastic.co/kibana/kibana:7.3.1
     ports:
       - "5601:5601"
-    networks:
-      - shared_network
     links:
       - elasticsearch
 
@@ -145,8 +135,6 @@ services:
     links:
       - elasticsearch
     # 24224 for TLS secure forwarding, 24225 for unsecured docker logging
-    networks:
-      - shared_network
     ports:
       - "24224:24224"
       - "24224:24224/udp"
@@ -155,9 +143,6 @@ services:
     volumes:
       - ./fluentd/conf:/fluentd/etc
       - /var/opt/magma/certs:/var/opt/magma/certs
-      
-networks:
-  shared_network:
 
 volumes:
   pgdata:
