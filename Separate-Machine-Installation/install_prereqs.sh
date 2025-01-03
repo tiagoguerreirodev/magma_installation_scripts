@@ -6,21 +6,19 @@
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do apt-get remove $pkg; done
 
 # Add Docker's official GPG key:
-sudo apt-get update
-apt-get install -y ca-certificates curl
-install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
-chmod a+r /etc/apt/keyrings/docker.asc
+apt update
+apt install -y apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
 # Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  tee /etc/apt/sources.list.d/docker.list > /dev/null
-apt-get update
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+apt update
+
+apt-cache policy docker-ce
 
 # Install
-apt-get install -y docker-ce docker-ce-cli containerd.io
+apt-get install -y docker-ce
 curl -fsSL https://github.com/docker/compose/releases/download/v2.29.1/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 
@@ -35,22 +33,23 @@ echo "Added current user to Docker group"
 chmod 777 /var/run/docker.sock
 
 ### Golang installation
-wget https://linuxfoundation.jfrog.io/artifactory/magma-blob/go1.18.3.linux-amd64.tar.gz
-rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
-export PATH=$PATH:/usr/local/go/bin
+wget https://go.dev/dl/go1.18.3.linux-amd64.tar.gz -O go.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go.tar.gz
+echo export PATH=$HOME/go/bin:/usr/local/go/bin:$PATH >> /home/magma/.bashrc
 echo "Installed golang"
 
 ### Python installation
-apt update -y
-apt install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev  libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl git
+apt update
 
-git clone https://github.com/pyenv/pyenv.git /home/magma/.pyenv
+wget https://pyenv.run -O pyenv.sh
+bash pyenv.sh
+rm pyenv.sh
 
-echo 'export PYENV_ROOT="/home/magma/.pyenv"' >> /home/magma/.bashrc
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/magma/.bashrc
-echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n eval "$(pyenv init -) "\nfi' >> /home/magma/.bashrc
-
-echo "Added Pyenv variables to bashrc and profile"
+echo '# Pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"' >> /home/magma/.bashrc
 
 source /home/magma/.bashrc
 
