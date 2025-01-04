@@ -38,29 +38,6 @@ rm -rf /usr/local/go && tar -C /usr/local -xzf go.tar.gz
 echo export PATH=$HOME/go/bin:/usr/local/go/bin:$PATH >> /home/magma/.bashrc
 echo "Installed golang"
 
-### Python installation
-apt update
-
-wget https://pyenv.run -O pyenv.sh
-bash pyenv.sh
-rm pyenv.sh
-
-echo '# Pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"' >> /home/magma/.bashrc
-
-source /home/magma/.bashrc
-
-pyenv install 3.8.10
-pyenv global 3.8.10
-
-dpkg --configure -a
-apt-get -y install curl make virtualenv zip rsync git software-properties-common python3-pip python-dev apt-transport-https
-
-echo "Configured python 3.8.10"
-
 git clone https://github.com/magma/magma.git /home/magma/magma
 
 mkdir -p /var/opt/magma/configs/
