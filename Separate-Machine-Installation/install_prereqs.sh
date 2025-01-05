@@ -2,6 +2,8 @@
 
 ### Docker installation
 
+ROOT_DIR = "$(pwd)"
+
 # Remove conflicting packages
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do apt-get remove $pkg; done
 
@@ -41,6 +43,7 @@ echo "Installed golang"
 git clone https://github.com/magma/magma.git /home/magma/magma
 cd /home/magma/magma
 git checkout v1.8
+cd ROOT_DIR
 
 mkdir -p /var/opt/magma/configs/
 cp ./control_proxy.yml /var/opt/magma/configs/control_proxy.yml
