@@ -39,6 +39,8 @@ echo export PATH=$HOME/go/bin:/usr/local/go/bin:$PATH >> /home/magma/.bashrc
 echo "Installed golang"
 
 git clone https://github.com/magma/magma.git /home/magma/magma
+cd /home/magma/magma
+git checkout v1.8
 
 mkdir -p /var/opt/magma/configs/
 cp ./control_proxy.yml /var/opt/magma/configs/control_proxy.yml
