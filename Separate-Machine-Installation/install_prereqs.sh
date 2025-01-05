@@ -38,6 +38,7 @@ chmod 777 /var/run/docker.sock
 wget https://go.dev/dl/go1.18.3.linux-amd64.tar.gz -O go.tar.gz
 rm -rf /usr/local/go && tar -C /usr/local -xzf go.tar.gz
 echo export PATH=$HOME/go/bin:/usr/local/go/bin:$PATH >> /home/magma/.bashrc
+rm go.tar.gz
 echo "Installed golang"
 
 git clone https://github.com/magma/magma.git /home/magma/magma
