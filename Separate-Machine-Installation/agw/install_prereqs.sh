@@ -49,17 +49,3 @@ cd $ROOT_DIR
 mkdir -p /var/opt/magma/configs/
 cp ./control_proxy.yml /var/opt/magma/configs/control_proxy.yml
 
-mkdir -p /var/opt/magma/certs
-
-cp /home/magma/magma/orc8r/cloud/deploy/scripts/self_sign_certs.sh /var/opt/magma/certs/self_sign_certs.sh
-cp /home/magma/magma/orc8r/cloud/deploy/scripts/create_application_certs.sh /var/opt/magma/certs/create_application_certs.sh
-
-cd /var/opt/magma/certs
-
-bash self_sign_certs.sh magma.test
-bash create_application_certs.sh magma.test
-
-openssl pkcs12 -export -inkey admin_operator.key.pem --passin pass:'asd' --passout pass:'asd' -in admin_operator.pem -out admin_operator.pfx
-
-chown magma:magma *
-chmod a+rw ./controller.key

@@ -69,6 +69,7 @@ if ! [ -f $FILE ]; then
 
   # interface config
   apt install -y ifupdown net-tools ipcalc
+  apt purge netplan.io -y
   mkdir -p "$INTERFACE_DIR"
   echo "source-directory $INTERFACE_DIR" > /etc/network/interfaces
 
