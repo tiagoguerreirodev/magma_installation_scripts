@@ -74,9 +74,7 @@ if ! [ -f $FILE ]; then
 
   echo "rename enp0s3=eth0
   auto eth0
-  iface eth0 inet static
-  address 192.168.2.1
-  netmask 255.255.255.0" > "$INTERFACE_DIR"/eth0
+  iface eth0 inet dhcp" > "$INTERFACE_DIR"/eth0
 
   echo "rename enp0s8=eth1
   auto eth1
