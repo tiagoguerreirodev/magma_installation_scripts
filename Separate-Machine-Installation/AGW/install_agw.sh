@@ -68,45 +68,21 @@ if ! [ -f $FILE ]; then
   service systemd-resolved restart
 
   # interface config
-  # apt install -y ifupdown net-tools ipcalc
-  # mkdir -p "$INTERFACE_DIR"
-  # echo "source-directory $INTERFACE_DIR" > /etc/network/interfaces
+  apt install -y ifupdown net-tools ipcalc
+  mkdir -p "$INTERFACE_DIR"
+  echo "source-directory $INTERFACE_DIR" > /etc/network/interfaces
 
-  # if [ -z "$addr1" ] || [ -z "$gw_addr" ]
-  # then
-  #   # DHCP allocated interface IP
-  #   echo "auto eth0
-  #   iface eth0 inet dhcp" > "$INTERFACE_DIR"/eth0
-  # else
-  #   # Statically allocated interface IP
-  #   if ipcalc -c "$addr1" | grep INVALID
-  #   then
-  #     echo "Interface ip is not valid IP"
-  #     exit 1
-  #   fi
+  echo "rename enp0s3=eth0
+  auto eth0
+  iface eth0 inet static
+  address 192.168.2.1
+  netmask 255.255.255.0" > "$INTERFACE_DIR"/eth0
 
-  #   if ipcalc -c "$gw_addr" | grep INVALID
-  #   then
-  #     echo "Upstream Router ip is not valid IP"
-  #     exit 1
-  #   fi
-
-  #   addr=$(   ipcalc -n "$addr1"  | grep Address | awk '{print $2}')
-  #   netmask=$(ipcalc -n "$addr1"  | grep Netmask | awk '{print $2}')
-  #   gw_addr=$(ipcalc -n "$gw_addr"| grep Address | awk '{print $2}')
-
-  #   echo "auto eth0
-  # iface eth0 inet static
-  # address $addr
-  # netmask $netmask
-  # gateway $gw_addr" > "$INTERFACE_DIR"/eth0
-  # fi
-
-  # # configuring eth1
-  # echo "auto eth1
-  # iface eth1 inet static
-  # address 10.0.2.1
-  # netmask 255.255.255.0" > "$INTERFACE_DIR"/eth1
+  echo "rename enp0s8=eth1
+  auto eth1
+  iface eth1 inet static
+  address 192.168.2.2
+  netmask 255.255.255.0" > "$INTERFACE_DIR"/eth1
 
   # get rid of netplan
   systemctl unmask networking

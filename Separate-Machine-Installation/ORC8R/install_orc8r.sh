@@ -27,5 +27,4 @@ sleep 60
 chmod a+x ./scripts/dev_setup.sh
 bash ./scripts/dev_setup.sh
 
-
 #TODO configure containers to auto-restart in reboot
